@@ -1,10 +1,13 @@
 package com.murat.bookauthor.Book.and.Author.Relation.service;
 
+import com.murat.bookauthor.Book.and.Author.Relation.dto.AuthorDto;
 import com.murat.bookauthor.Book.and.Author.Relation.entity.Author;
 import com.murat.bookauthor.Book.and.Author.Relation.repository.AuthorRepository;
+import com.murat.bookauthor.Book.and.Author.Relation.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +17,7 @@ public class AuthorServiceImpl implements AuthorService{
 
 
     private AuthorRepository authorRepository;
+    private BookRepository bookRepository;
 
     @Autowired
     public AuthorServiceImpl(AuthorRepository authorRepository) {
@@ -21,13 +25,21 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public Author save(Author author) {
-        return authorRepository.save(author);
+    public AuthorDto save(Author author) {
+         authorRepository.save(author);
+         return new AuthorDto(author.getId(), author.getName(), author.getBook().getTitle());
     }
 
     @Override
-    public List<Author> findAll() {
-        return authorRepository.findAll();
+    public List<AuthorDto> findAll() {
+        List<Author> authors = authorRepository.findAll();
+        List<AuthorDto> authorDtos = new ArrayList<>();
+
+        for (Author author : authors){
+            AuthorDto authorDto = new AuthorDto(author.getId() , author.getName() , author.getBook().getTitle());
+            authorDtos.add(authorDto);
+        }
+        return authorDtos;
     }
 
     @Override
