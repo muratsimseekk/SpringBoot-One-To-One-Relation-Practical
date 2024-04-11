@@ -9,18 +9,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "book" , schema = "practice")
+@Table(name = "book", schema = "practice")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id ;
+    private Long id;
 
     @Column(name = "title")
     private String title;
 
-    @OneToOne(mappedBy = "book")
-    private Author author;
 
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    private Author author;
 }

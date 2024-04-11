@@ -27,7 +27,7 @@ public class AuthorServiceImpl implements AuthorService{
     @Override
     public AuthorDto save(Author author) {
          authorRepository.save(author);
-         return new AuthorDto(author.getId(), author.getName(), author.getBook().getTitle());
+         return new AuthorDto(author.getId(), author.getName(), author.getBook().getTitle() , author.getBook().getId());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AuthorServiceImpl implements AuthorService{
         List<AuthorDto> authorDtos = new ArrayList<>();
 
         for (Author author : authors){
-            AuthorDto authorDto = new AuthorDto(author.getId() , author.getName() , author.getBook().getTitle());
+            AuthorDto authorDto = new AuthorDto(author.getId() , author.getName() , author.getBook().getTitle() , author.getBook().getId());
             authorDtos.add(authorDto);
         }
         return authorDtos;
