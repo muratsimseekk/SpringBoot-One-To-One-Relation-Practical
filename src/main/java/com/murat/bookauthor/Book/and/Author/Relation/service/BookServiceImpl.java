@@ -29,13 +29,6 @@ public class BookServiceImpl implements BookService{
         // Save the book first
         Book savedBook = bookRepository.save(book);
 
-        // Set the saved book's ID in the author entity
-        Author author = book.getAuthor();
-        author.setBook(savedBook);
-        book.setAuthor(author);
-
-        // Save the author
-        authorRepository.save(author);
 
         // Return the book DTO
         return new BookDto(savedBook.getId(), savedBook.getTitle());
